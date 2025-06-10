@@ -53,10 +53,11 @@ def save_landmarks_from_video(video_name):
                 image, results = mediapipe_detection(frame, holistic)
 
                 # Store results
-                pose, left_hand, right_hand = extract_landmarks(results)
-                landmark_list["pose"].append(pose)
-                landmark_list["left_hand"].append(left_hand)
-                landmark_list["right_hand"].append(right_hand)
+                if not results.pose_landmarks is None:
+                    pose, left_hand, right_hand = extract_landmarks(results)
+                    landmark_list["pose"].append(pose)
+                    landmark_list["left_hand"].append(left_hand)
+                    landmark_list["right_hand"].append(right_hand)
             else:
                 break
         cap.release()
